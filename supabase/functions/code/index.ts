@@ -5,6 +5,12 @@ Deno.serve(async (req) => {
   try {
     const { query } = await req.json();
 
+    if (!query) {
+      return new Response(
+        'curl -X POST https://****.supabase.co/functions/v1/code -d \'{"query":""}\'',
+      );
+    }
+
     if (!Deno.env.get("REPLICATE_API_TOKEN")) {
       throw new Error("REPLICATE_API_TOKEN is required");
     }
